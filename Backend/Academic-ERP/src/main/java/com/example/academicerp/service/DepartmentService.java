@@ -3,17 +3,80 @@ package com.example.academicerp.service;
 import com.example.academicerp.dto.DepartmentRequestDto;
 import com.example.academicerp.dto.DepartmentResponseDto;
 import com.example.academicerp.entity.Department;
+import com.example.academicerp.exception.AppExceptions.ResourceNotFoundException;
+import com.example.academicerp.mapper.DepartmentMapper;
+import com.example.academicerp.repository.DepartmentRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-public interface DepartmentService {
-    DepartmentResponseDto createDepartment(DepartmentRequestDto departmentDto);
-    
-    DepartmentResponseDto getDepartmentById(Integer id);
-    
-    List<DepartmentResponseDto> getAllDepartments();
-    
-    DepartmentResponseDto updateDepartment(Integer id, DepartmentRequestDto departmentDto);
-    
-    void deleteDepartment(Integer id);
+@Service
+@RequiredArgsConstructor
+public class DepartmentService {
+
+    private final DepartmentRepository departmentRepository;
+    private final DepartmentMapper departmentMapper;
+
+    @Transactional
+    public DepartmentResponseDto createDepartment(DepartmentRequestDto departmentDto) {
+        System.out.println("1. Received DTO: " + departmentDto);
+        
+        // Map DTO to entity
+        Department department = departmentMapper.toEntity(departmentDto);
+        System.out.println("2. Mapped to entity - Name: " + department.getName() + 
+                         ", Capacity: " + department.getCapacity());
+        
+        // Save to database
+        Department savedDepartment = departmentRepository.save(department);
+        System.out.println("3. Saved department - ID: " + savedDepartment.getId() + 
+                         ", Name: " + savedDepartment.getName() + 
+                         ", Capacity: " + savedDepartment.getCapacity());
+        
+        // Map back to DTO
+        DepartmentResponseDto responseDto = departmentMapper.toDto(savedDepartment);
+        System.out.println("4. Mapped to response DTO - ID: " + responseDto.getId() + 
+                         ", Name: " + responseDto.getName() + 
+                         ", Capacity: " + responseDto.getCapacity());
+        
+        return responseDto;
+    }
+
+    public DepartmentResponseDto getDepartmentById(Integer id) {
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
+        return departmentMapper.toDto(department);
+    }
+
+    public List<DepartmentResponseDto> getAllDepartments() {
+        return departmentRepository.findAll().stream()
+                .map(departmentMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public DepartmentResponseDto updateDepartment(Integer id, DepartmentRequestDto departmentDto) {
+        Department existingDepartment = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
+        
+        departmentMapper.updateDepartmentFromDto(departmentDto, existingDepartment);
+        Department updatedDepartment = departmentRepository.save(existingDepartment);
+        return departmentMapper.toDto(updatedDepartment);
+    }
+
+    @Transactional
+    public void deleteDepartment(Integer id) {
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
+        
+        // Remove department association from all employees
+        // The foreign key is set to ON DELETE SET NULL, so employees will remain but department_id will be null
+        if (!department.getEmployees().isEmpty()) {
+            department.getEmployees().forEach(employee -> employee.setDepartment(null));
+        }
+        
+        departmentRepository.delete(department);
+    }
 }

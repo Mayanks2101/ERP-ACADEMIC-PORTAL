@@ -9,7 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "employee",
-    indexes = @Index(columnList = "department_id", unique = true, name = "UK_employee_department")
+    indexes = @Index(columnList = "department_id", name = "UK_employee_department")
 )
 @Data
 @NoArgsConstructor

@@ -22,13 +22,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class EmployeeService implements EmployeeServiceInterface {
+public class EmployeeService {
     
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
     private final EmployeeMapper employeeMapper;
 
-    @Override
+
     public ResponseEntity<?> addEmployee(Employee employee, String jwt) throws Exception {
         if (jwt == null) {
             throw new JwtTokenNotValid("JWT token is required");
@@ -68,7 +68,7 @@ public class EmployeeService implements EmployeeServiceInterface {
         return addEmployee(employee, jwt);
     }
 
-    @Override
+
     public ResponseEntity<?> getEmployeeById(int id, String jwt) throws Exception {
         if (jwt == null) {
             throw new JwtTokenNotValid("JWT token is required");

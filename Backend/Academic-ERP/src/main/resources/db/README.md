@@ -1,55 +1,72 @@
-# Database Setup Instructions
+# Academic ERP - Database Setup
 
 ## Overview
-This directory contains SQL scripts to set up the Academic ERP database schema and sample data.
+This directory contains SQL scripts to set up the Academic ERP database schema and sample data. The database consists of three main tables that handle user authentication, department information, and employee records.
 
 ## Database Schema
-The application uses three main tables:
-- **users**: Stores user authentication and profile information
-- **department**: Stores department information
-- **employee**: Stores employee information linked to departments
+
+### Tables
+- **users**: Manages user authentication and profile information
+  - Stores credentials, names, and role-based access control
+  
+- **department**: Contains department information
+  - Tracks department names and their capacities
+  
+- **employee**: Manages employee records
+  - Links employees to their respective departments
+  - Stores contact and role information
 
 ## Setup Instructions
+
+### Prerequisites
+- MySQL Server installed and running
+- MySQL client/command line tool
+- Database user with appropriate permissions
 
 ### 1. Create Database and Schema
 Run the schema creation script:
 ```bash
-mysql -u root -p < 01_create_schema.sql
+mysql -u root -p < create_schema.sql
 ```
 
 ### 2. Insert Sample Data (Optional)
-If you want to start with sample data for testing:
+To populate the database with sample data for testing:
 
 ```bash
-# Insert departments
-mysql -u root -p new_academic_erp < 02_insert_departments.sql
-
-# Insert employees
-mysql -u root -p new_academic_erp < 03_insert_employees.sql
-
-# Insert test users
-mysql -u root -p new_academic_erp < 04_insert_users.sql
+# Insert all sample data (departments, employees, and users)
+mysql -u root -p new_academic_erp < insert_data.sql
 ```
 
-### 3. Using Spring Boot Auto-Configuration
-Alternatively, you can let Spring Boot create the tables automatically:
-- The `application.properties` file has `spring.jpa.properties.hibernate.hbm2ddl.auto=update`
-- This will automatically create/update tables based on your JPA entities
-- You only need to create the database: `CREATE DATABASE new_academic_erp;`
+### 3. Spring Boot Auto-Configuration (Alternative)
+The application can automatically handle database setup using JPA:
+1. Ensure the database exists:
+   ```sql
+   CREATE DATABASE new_academic_erp;
+   ```
+2. The `application.properties` is configured with:
+   ```properties
+   spring.jpa.properties.hibernate.hbm2ddl.auto=update
+   ```
+3. Start the application - tables will be created/updated automatically
 
 ## Test Users
 
-After running `04_insert_users.sql`, you can login with:
+After running `insert_data.sql`, you can log in with these test accounts:
 
-**Admin User** (has CRUD permissions):
-- Email: `department.admin@university.edu`
-- Password: `password123`
-- Role: ROLE_ADMIN
+### Admin User
+- **Email:** `department.admin@university.edu`  
+- **Password:** `password123`  
+- **Role:** `ROLE_ADMIN`  
+- **Permissions:** Full CRUD operations on all resources
 
-**Regular Users** (read-only):
-- Email: `john.doe@university.edu` or `jane.smith@university.edu`
-- Password: `password123`
-- Role: ROLE_USER
+### Regular Users
+- **Email:** `john.doe@university.edu`  
+  **Password:** `password123`  
+  **Role:** `ROLE_USER`
+  
+- **Email:** `jane.smith@university.edu`  
+  **Password:** `password123`  
+  **Role:** `ROLE_USER`
 
 ## Role-Based Access Control
 
@@ -57,8 +74,6 @@ After running `04_insert_users.sql`, you can login with:
 - All other users get **ROLE_USER** (read-only access)
 
 ## Notes
-
-- The old `erp_admin` table has been removed
 - All authentication is now handled through the `users` table
 - Passwords are stored as BCrypt hashes
 - The schema uses InnoDB engine with UTF-8 encoding

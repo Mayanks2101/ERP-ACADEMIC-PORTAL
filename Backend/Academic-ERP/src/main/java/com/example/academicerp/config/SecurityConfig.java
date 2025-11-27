@@ -3,8 +3,8 @@ package com.example.academicerp.config;
 import com.example.academicerp.config.security.JwtAuthenticationEntryPoint;
 import com.example.academicerp.config.security.JwtAuthenticationFilter;
 import com.example.academicerp.config.security.JwtTokenValidator;
-import com.example.academicerp.service.CustomerOAuth2UserService;
-import com.example.academicerp.service.UserDetailsServiceImpl;
+import com.example.academicerp.service.OAuthService;
+import com.example.academicerp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,12 +41,12 @@ public class SecurityConfig {
     private JwtAuthenticationFilter filter;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private UserService userDetailsService;
     
     private final JwtTokenValidator jwtTokenValidator;
-    private final CustomerOAuth2UserService oauth2UserService;
+    private final OAuthService oauth2UserService;
 
-    public SecurityConfig(JwtTokenValidator jwtTokenValidator, CustomerOAuth2UserService oauth2UserService) {
+    public SecurityConfig(JwtTokenValidator jwtTokenValidator, OAuthService oauth2UserService) {
         this.jwtTokenValidator = jwtTokenValidator;
         this.oauth2UserService = oauth2UserService;
     }

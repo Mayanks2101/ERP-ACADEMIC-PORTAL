@@ -10,7 +10,7 @@ import com.example.academicerp.dto.AuthResponseDto;
 import com.example.academicerp.dto.LoginRequestDto;
 import com.example.academicerp.entity.User;
 import com.example.academicerp.repository.UserRepository;
-import com.example.academicerp.service.UserDetailsServiceImpl;
+import com.example.academicerp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private UserService userDetailsService;
     
     @Autowired
     private JwtProvider jwtProvider;

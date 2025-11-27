@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class CustomerOAuth2UserService extends DefaultOAuth2UserService {
+public class OAuthService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
 
-    public CustomerOAuth2UserService(UserRepository userRepository) {
+    public OAuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

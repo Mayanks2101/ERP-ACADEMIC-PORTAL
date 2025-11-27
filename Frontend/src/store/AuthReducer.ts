@@ -118,6 +118,10 @@ export const getUserProfile = createAsyncThunk(
             return response.data;
         } catch (error: any) {
             console.log("catch error  ", error);
+            // If 401 Unauthorized, clear the invalid token from storage
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem("jwt");
+            }
             const payload = error.response?.data ?? { message: error.message ?? "Failed to fetch profile" };
             return thunkAPI.rejectWithValue(payload);
         }

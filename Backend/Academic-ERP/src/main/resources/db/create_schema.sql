@@ -5,6 +5,11 @@
 CREATE DATABASE IF NOT EXISTS new_academic_erp;
 USE new_academic_erp;
 
+-- Drop existing tables if they exist
+DROP TABLE IF EXISTS employee;
+DROP TABLE IF EXISTS department;
+DROP TABLE IF EXISTS users;
+
 -- ============================================
 -- Table: users
 -- Stores user authentication and profile information
@@ -38,7 +43,7 @@ CREATE TABLE IF NOT EXISTS employee (
     name VARCHAR(255),
     email VARCHAR(255) UNIQUE,
     title VARCHAR(255),
-    department_id INT UNIQUE
+    department_id INT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================
