@@ -50,11 +50,21 @@ public class EmployeeController {
         if(jwt==null){
             throw new JwtTokenNotValid("jwt required...");
         }
-        User user=userService.findUserProfileByJwt(jwt);
-
-        if(user==null || !user.getRole().equals("ROLE_ERP_ADMIN")){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+        // Allow all authenticated users to view employees
+        userService.findUserProfileByJwt(jwt);
         return employeeService.getEmployeeById(id, jwt);
+    }
+    
+    @GetMapping("getByDepartment/{departmentId}")
+    public ResponseEntity<?> getEmployeesByDepartment(
+            @PathVariable Integer departmentId,
+            @RequestHeader("Authorization") String jwt) throws Exception {
+        if (jwt == null) {
+            throw new JwtTokenNotValid("JWT token is required");
+        }
+        
+        // Allow all authenticated users to view employees
+        userService.findUserProfileByJwt(jwt);
+        return employeeService.getEmployeesByDepartmentId(departmentId);
     }
 }

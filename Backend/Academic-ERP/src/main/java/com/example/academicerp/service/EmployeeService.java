@@ -87,10 +87,26 @@ public class EmployeeService implements EmployeeServiceInterface {
         return new ResponseEntity<>(responseDtos, HttpStatus.OK);
     }
     
+    
     // Additional method to get all employees
     public List<EmployeeResponseDto> getAllEmployees() {
         return employeeRepository.findAll().stream()
                 .map(employeeMapper::toDto)
                 .collect(Collectors.toList());
+    }
+    
+    // Get employees by department ID
+    public ResponseEntity<?> getEmployeesByDepartmentId(Integer departmentId) {
+        Optional<Department> departmentOpt = departmentRepository.findById(departmentId);
+        if (departmentOpt.isEmpty()) {
+            throw new ResourceNotFoundException("Department not found with id: " + departmentId);
+        }
+        
+        List<Employee> employees = employeeRepository.findByDepartment(departmentOpt.get());
+        List<EmployeeResponseDto> responseDtos = employees.stream()
+                .map(employeeMapper::toDto)
+                .collect(Collectors.toList());
+        
+        return new ResponseEntity<>(responseDtos, HttpStatus.OK);
     }
 }

@@ -78,10 +78,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         Department department = departmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
         
-        // Check if there are any employees in this department
+        // Remove department association from all employees
+        // The foreign key is set to ON DELETE SET NULL, so employees will remain but department_id will be null
         if (!department.getEmployees().isEmpty()) {
-            throw new ResourceInUseException("Cannot delete department with id " + id +
-                " because it has " + department.getEmployees().size() + " employees assigned to it");
+            department.getEmployees().forEach(employee -> employee.setDepartment(null));
         }
         
         departmentRepository.delete(department);
