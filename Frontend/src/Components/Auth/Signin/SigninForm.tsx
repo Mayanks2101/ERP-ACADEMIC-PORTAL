@@ -68,7 +68,6 @@ export default function SigninForm({ togglePanel }: SigninFormProps) {
     return (
         <div className="form-wrap small">
             <h2 className="form-title">Sign in</h2>
-            {/* <p className="form-sub">Welcome back — sign in to continue.</p> */}
 
             {auth.error && <div className="server-error">{auth.error}</div>}
 

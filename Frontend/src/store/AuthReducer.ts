@@ -30,7 +30,6 @@ export const login = createAsyncThunk(
         try {
             const response = await axios.post(`${BASE_URL}/api/auth/signin`, userData);
             localStorage.setItem("jwt", response.data.jwt);
-            console.log("login success ", response.data);
             toast.success("login sucessfully ", {
                 position: "top-center",
                 autoClose: 3000,
@@ -44,7 +43,6 @@ export const login = createAsyncThunk(
             });
             return response.data;
         } catch (error: any) {
-            console.log("catch error  ", error);
 
             // prefer server response body if available
             const payload = error.response?.data ?? { message: error.message ?? "Login failed" };
@@ -72,7 +70,6 @@ export const register = createAsyncThunk(
         try {
             const response = await axios.post(`${BASE_URL}/api/auth/signup`, userData);
             localStorage.setItem("jwt", response.data.jwt);
-            console.log("register success ", response.data);
             toast.success("user registered.. ", {
                 position: "top-center",
                 autoClose: 3000,
@@ -86,7 +83,6 @@ export const register = createAsyncThunk(
             });
             return response.data;
         } catch (error: any) {
-            console.log("catch error  ", error);
             const payload = error.response?.data ?? { message: error.message ?? "Register failed" };
             toast.error(payload.message ?? JSON.stringify(payload), {
                 position: "top-center",
@@ -119,7 +115,6 @@ export const getUserProfile = createAsyncThunk(
         setAuthHeader(jwt, api);
         try {
             const response = await api.get("/api/users/profile");
-            console.log("get profile success ", response.data);
             return response.data;
         } catch (error: any) {
             console.log("catch error  ", error);

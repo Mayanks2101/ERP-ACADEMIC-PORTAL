@@ -42,16 +42,10 @@ const EmpList = () => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
     useEffect(() => {
-        console.debug('EmpList mount: fetching employees for dept id=', id);
         if (id) {
             dispatch(getEmployee({ j: localStorage.getItem('jwt'), id }));
         }
     }, [dispatch, id]);
-
-    // debug log to help you inspect shape
-    useEffect(() => {
-        console.debug('dept slice in EmpList:', dept);
-    }, [dept]);
 
     const handleChangePage = (event: unknown, newPage: number) => setPage(newPage);
     const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {

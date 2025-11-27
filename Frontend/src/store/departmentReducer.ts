@@ -31,12 +31,8 @@ export const getDepartment = createAsyncThunk(
         setAuthHeader(j, api)
         try {
             const response = await api.get(`${BASE_URL}/api/departments`)
-            console.log('department information received', response.data)
-            console.log(response.status)
             return response.data
         } catch (error: any) {
-            console.log('catched error response statuss' + error.status)
-            console.log('catch error', error)
             throw Error(error.response?.data?.error || error.message)
         }
     }
@@ -50,12 +46,8 @@ export const getEmployee = createAsyncThunk(
             // Updated to use the correct endpoint for getting employees by department
             // Using the new endpoint we created or the existing one that works
             const response = await api.get(`${BASE_URL}/api/emp/getByDepartment/${id}`)
-            console.log('department information received', response.data)
-            console.log(response.status)
             return response.data
         } catch (error: any) {
-            console.log('catched error response statuss' + error.status)
-            console.log('catch error', error)
             throw Error(error.response?.data?.error || error.message)
         }
     }
@@ -67,12 +59,8 @@ export const createDepartment = createAsyncThunk(
         setAuthHeader(j, api)
         try {
             const response = await api.post(`${BASE_URL}/api/departments`, obj)
-            console.log('department information received', response.data)
-            console.log(response.status)
             return response.data
         } catch (error: any) {
-            console.log('catched error response statuss' + error.status)
-            console.log('catch error', error)
             throw Error(error.response?.data?.error || error.message)
         }
     }
@@ -84,12 +72,8 @@ export const updateDepartment = createAsyncThunk(
         setAuthHeader(j, api)
         try {
             const response = await api.put(`${BASE_URL}/api/departments/${obj.id}`, obj)
-            console.log('department information received', response.data)
-            console.log(response.status)
             return response.data
         } catch (error: any) {
-            console.log('catched error response statuss' + error.status)
-            console.log('catch error', error)
             throw Error(error.response?.data?.error || error.message)
         }
     }
@@ -102,16 +86,12 @@ export const deleteDepartment = createAsyncThunk(
         setAuthHeader(j, api)
         try {
             const response = await api.delete(`${BASE_URL}/api/departments/${id}`)
-            console.log('department information received', response)
-            console.log(response.status)
             // backend returns 204 -> treat as success and return id so reducer can remove it
             if (response.status === 204 || (response.status >= 200 && response.status < 300)) {
                 return id
             }
             return rejectWithValue('Delete failed')
         } catch (error: any) {
-            console.log('catched error response statuss' + error.status)
-            console.log('catch error', error)
             return rejectWithValue(error?.response?.data?.error || error.message || 'Delete failed')
         }
     }
