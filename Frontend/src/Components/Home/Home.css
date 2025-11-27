@@ -4,7 +4,8 @@
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly; /* This will space the cards evenly */
+    justify-content: space-evenly;
+    /* This will space the cards evenly */
     gap: 20px;
     background: #f4f7fc;
     min-height: 100vh;
@@ -12,17 +13,18 @@
 }
 
 /* Card Layout Styling */
-.home-main > div {
+.home-main>div {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
-    width: 100%; /* Ensure it takes full width */
+    width: 100%;
+    /* Ensure it takes full width */
 }
 
 /* Empty state message styling */
-.home-main > div {
+.home-main>div {
     font-size: 1.2rem;
     color: #555;
     font-weight: bold;
@@ -35,7 +37,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.home-main > div:hover {
+.home-main>div:hover {
     transform: scale(1.01);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
@@ -45,23 +47,32 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between; /* Spread out cards evenly across the row */
-    width: 100%; /* Ensure cards take full width */
+    justify-content: space-between;
+    /* Spread out cards evenly across the row */
+    width: 100%;
+    /* Ensure cards take full width */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .home-main {
         flex-direction: column;
-        padding: 10px;
+        padding: 16px;
+        margin-top: 10px;
+    }
+
+    .card-container {
+        justify-content: center;
     }
 
     .card {
-        width: 100%; /* Make cards take up full width on smaller screens */
+        width: 100%;
+        /* Make cards take up full width on smaller screens */
         min-height: auto;
     }
 
-    .home-main > div {
-        margin-top: 10px;
+    .home-main>div {
+        margin-top: 0;
+        padding: 30px 20px;
     }
 }

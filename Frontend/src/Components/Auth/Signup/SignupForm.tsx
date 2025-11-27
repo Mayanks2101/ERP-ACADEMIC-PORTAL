@@ -5,6 +5,10 @@ import { register } from "../../../store/AuthReducer";
 import { AppDispatch, RootState } from "../../../store/store";
 import { BACKEND_BASE_URL } from "../../../config";
 
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
 interface SignupFormProps {
     togglePanel: () => void;
 }
@@ -21,6 +25,7 @@ export default function SignupForm({ togglePanel }: SignupFormProps) {
     const auth = useSelector((s: RootState) => s.auth);
     const [formData, setFormData] = useState({ fullName: "", email: "", password: "", role: "ROLE_ERP_ADMIN" });
     const [errors, setErrors] = useState<Errors>({});
+    const [showPassword, setShowPassword] = useState(false);
 
     const validateField = (name: string, value: string): string => {
         if (name === "fullName") if (!value) return "Full Name required";
@@ -70,7 +75,29 @@ export default function SignupForm({ togglePanel }: SignupFormProps) {
                 <input name="email" placeholder="Email" value={formData.email} onChange={handleChange} className={`input ${errors.email ? "input-error" : ""}`} />
                 {errors.email && <div className="field-error">{errors.email}</div>}
 
-                <input name="password" placeholder="Password" type="password" value={formData.password} onChange={handleChange} className={`input ${errors.password ? "input-error" : ""}`} />
+                {/* Password row: inline input + toggle button (fixed layout) */}
+                <div
+                    className="password-row"
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                >
+                    <input
+                        name="password"
+                        placeholder="Password"
+                        type={showPassword ? "text" : "password"}
+                        value={formData.password}
+                        onChange={handleChange}
+                        className={`input ${errors.password ? "input-error" : ""}`}
+                        style={{ flex: 1, margin: 0 }}
+                    />
+                    <IconButton
+                        onClick={() => setShowPassword(s => !s)}
+                        size="small"
+                        aria-label="toggle password"
+                        sx={{ width: 36, height: 36, padding: 0 }}
+                    >
+                        {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+                    </IconButton>
+                </div>
                 {errors.password && <div className="field-error">{errors.password}</div>}
 
                 <button className="primary-btn" type="submit" disabled={auth.loading}>{auth.loading ? "Please wait..." : "Create account"}</button>

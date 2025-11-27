@@ -99,9 +99,34 @@
 }
 
 /* responsive */
-@media (max-width:980px){
-  .auth-card{ flex-direction:column; height:auto; }
-  .auth-left{ width:100%; padding:28px; min-width:0; }
-  .auth-right{ width:100%; height:320px; order:2; padding:20px; }
-  .auth-form-inner{ max-width:100%; }
+/* responsive */
+@media (max-width: 980px) {
+  .auth-card {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .auth-left {
+    width: 100%;
+    padding: 24px;
+    min-width: 0;
+  }
+  
+  .auth-page {
+    padding: 0;
+    background: #fff;
+    align-items: flex-start;
+  }
+
+  .auth-right {
+    display: none; /* Hide the image part on mobile to save space */
+  }
+
+  .auth-form-inner {
+    max-width: 100%;
+  }
 }

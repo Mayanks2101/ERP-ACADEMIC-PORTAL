@@ -20,7 +20,6 @@ export const setAuthHeader = (token: string | null, api: AxiosInstance): void =>
 };
 
 export const startTokenExpiryCheck = (): void => {
-    console.log("enterrrrrrrrrrrrrrr");
     const jwtString = localStorage.getItem('jwt');
     if (!jwtString) return;
 
@@ -32,12 +31,10 @@ export const startTokenExpiryCheck = (): void => {
     try {
         const user = JSON.parse(jwtString);
         const checkInterval = 1000;
-        console.log(user);
         const exptime = user.expiration; // Ensure this exists in your stored object
 
         const intervalId = setInterval(() => {
             const currentTime = Date.now();
-            // console.log(exptime);
             if (exptime <= currentTime) {
                 toast.error('Your session has expired. Please log in again.', {
                     position: "top-center",

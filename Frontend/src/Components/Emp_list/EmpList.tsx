@@ -77,8 +77,8 @@ const EmpList = () => {
 
                     {employees.length > 0 ? (
                         <Paper elevation={2} sx={{ borderRadius: 2, overflow: 'hidden' }}>
-                            <TableContainer component={Paper} sx={{ background: '#fff', borderRadius: 2 }}>
-                                <Table>
+                            <TableContainer component={Paper} sx={{ background: '#fff', borderRadius: 2, overflowX: 'auto' }}>
+                                <Table sx={{ minWidth: 650 }}>
                                     <TableHead>
                                         <TableRow sx={{ backgroundColor: '#fafafa' }}>
                                             <TableCell sx={{ fontWeight: 700, fontSize: 15, color: '#111827' }}>Employee Name</TableCell>

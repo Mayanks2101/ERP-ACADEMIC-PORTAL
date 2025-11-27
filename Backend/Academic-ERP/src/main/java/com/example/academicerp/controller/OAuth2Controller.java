@@ -44,13 +44,17 @@ public class OAuth2Controller {
             String token = jwtProvider.generateToken(authentication, email);
 
             // Redirect to frontend with token
-            return new RedirectView(frontendUrl + "/oauth2/redirect?token=" + token + "&email=" + email);
+            // Split frontendUrl to handle multiple origins (e.g., localhost, network IP)
+            String targetUrl = frontendUrl.split(",")[0]; 
+            return new RedirectView(targetUrl + "/oauth2/redirect?token=" + token + "&email=" + email);
         }
-        return new RedirectView(frontendUrl + "/login?error=oauth_failed");
+        String targetUrl = frontendUrl.split(",")[0];
+        return new RedirectView(targetUrl + "/login?error=oauth_failed");
     }
 
     @GetMapping("/failure")
     public RedirectView oauth2Failure() {
-        return new RedirectView(frontendUrl + "/login?error=oauth_failed");
+        String targetUrl = frontendUrl.split(",")[0];
+        return new RedirectView(targetUrl + "/login?error=oauth_failed");
     }
 }
