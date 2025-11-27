@@ -77,9 +77,20 @@ export default function SignupForm({ togglePanel }: SignupFormProps) {
                 <div className="small-info">Already have an account? <button type="button" className="link-btn" onClick={togglePanel}>Signin</button></div>
 
                 <div className="social-row">
-                    <button type="button" className="social-btn">G</button>
-                    <button type="button" className="social-btn elevated"></button>
-                    <button type="button" className="social-btn">f</button>
+                    <button
+                        type="button"
+                        className="google-btn"
+                        aria-label="google"
+                        onClick={() => {
+                            window.location.href = "http://localhost:8080/oauth2/authorization/google";
+                        }}
+                    >
+                        <img
+                            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                            alt="Google"
+                        />
+                        <span>Sign in with Google</span>
+                    </button>
                 </div>
             </form>
         </div>
