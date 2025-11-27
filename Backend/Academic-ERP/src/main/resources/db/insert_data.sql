@@ -78,11 +78,11 @@ INSERT INTO employee (name, email, title, department_id) VALUES
 
 -- ============================================
 -- Insert Users
--- Note: Passwords are BCrypt hashed versions of "password123"
+-- Note: Passwords are BCrypt hashed versions of
 -- ============================================
--- Admin user (email starts with "department.")
--- INSERT INTO users (email, password, first_name, last_name, role, is_active) VALUES
---    ('department.admin@university.edu', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Admin', 'User', 'ROLE_ADMIN', 1);
+-- Admin user (email starts with "department." and password : "departmentadmin@1")
+ INSERT INTO users (email, password, first_name, last_name, role, is_active) VALUES
+    ('department.admin@gmail.com', '$2a$10$vi5QcdH88.7za8WtUVb6fuTMhnzWaRFO2imsOOooaZZCryW5h29yO', 'Admin', 'User', 'ROLE_ADMIN', 1);
 
 -- Regular users (non-department emails)
 -- INSERT INTO users (email, password, first_name, last_name, role, is_active) VALUES

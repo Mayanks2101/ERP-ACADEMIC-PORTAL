@@ -2,10 +2,10 @@ import axios, { AxiosInstance } from "axios";
 import { toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const BASE_URL = 'http://localhost:8080';
+import { BACKEND_BASE_URL } from "../config";
 
 export const api: AxiosInstance = axios.create({
-    baseURL: BASE_URL,
+    baseURL: BACKEND_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },

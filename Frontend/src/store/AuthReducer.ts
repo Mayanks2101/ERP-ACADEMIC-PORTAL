@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { BASE_URL, api, setAuthHeader } from "../api/api";
+import { api, setAuthHeader } from "../api/api";
+import { BACKEND_BASE_URL } from "../config";
 import { toast, Bounce } from "react-toastify";
 
 // Define User interface
@@ -28,7 +29,7 @@ export const login = createAsyncThunk(
     "auth/login",
     async (userData: any, thunkAPI) => {
         try {
-            const response = await axios.post(`${BASE_URL}/api/auth/signin`, userData);
+            const response = await axios.post(`${BACKEND_BASE_URL}/api/auth/signin`, userData);
             localStorage.setItem("jwt", response.data.jwt);
             toast.success("login sucessfully ", {
                 position: "top-center",
@@ -68,7 +69,7 @@ export const register = createAsyncThunk(
     "auth/register",
     async (userData: any, thunkAPI) => {
         try {
-            const response = await axios.post(`${BASE_URL}/api/auth/signup`, userData);
+            const response = await axios.post(`${BACKEND_BASE_URL}/api/auth/signup`, userData);
             localStorage.setItem("jwt", response.data.jwt);
             toast.success("user registered.. ", {
                 position: "top-center",

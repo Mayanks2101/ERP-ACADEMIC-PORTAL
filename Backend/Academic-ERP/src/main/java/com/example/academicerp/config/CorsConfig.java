@@ -19,7 +19,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**") // Apply to endpoints starting with /api/
-                        .allowedOrigins(appConfig.getFrontendUrl()) // Allow the frontend's origin
+                        .allowedOrigins(appConfig.getFrontendUrl().split(",")) // Allow multiple origins
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specify allowed HTTP methods
                         .allowedHeaders("*") // Allow all headers
                         .allowCredentials(true); // If cookies or authentication are needed

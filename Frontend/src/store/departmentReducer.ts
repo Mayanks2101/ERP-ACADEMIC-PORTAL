@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { BASE_URL, api, setAuthHeader } from '../api/api'
+import { api, setAuthHeader } from '../api/api'
+import { BACKEND_BASE_URL } from '../config'
 
 // Define interfaces
 export interface Department {
@@ -30,7 +31,7 @@ export const getDepartment = createAsyncThunk(
     async ({ j }: { j: string | null }) => {
         setAuthHeader(j, api)
         try {
-            const response = await api.get(`${BASE_URL}/api/departments`)
+            const response = await api.get(`${BACKEND_BASE_URL}/api/departments`)
             return response.data
         } catch (error: any) {
             throw Error(error.response?.data?.error || error.message)
@@ -45,7 +46,7 @@ export const getEmployee = createAsyncThunk(
         try {
             // Updated to use the correct endpoint for getting employees by department
             // Using the new endpoint we created or the existing one that works
-            const response = await api.get(`${BASE_URL}/api/emp/getByDepartment/${id}`)
+            const response = await api.get(`${BACKEND_BASE_URL}/api/emp/getByDepartment/${id}`)
             return response.data
         } catch (error: any) {
             throw Error(error.response?.data?.error || error.message)
@@ -58,7 +59,7 @@ export const createDepartment = createAsyncThunk(
     async ({ j, obj }: { j: string | null, obj: any }) => {
         setAuthHeader(j, api)
         try {
-            const response = await api.post(`${BASE_URL}/api/departments`, obj)
+            const response = await api.post(`${BACKEND_BASE_URL}/api/departments`, obj)
             return response.data
         } catch (error: any) {
             throw Error(error.response?.data?.error || error.message)
@@ -71,7 +72,7 @@ export const updateDepartment = createAsyncThunk(
     async ({ j, obj }: { j: string | null, obj: any }) => {
         setAuthHeader(j, api)
         try {
-            const response = await api.put(`${BASE_URL}/api/departments/${obj.id}`, obj)
+            const response = await api.put(`${BACKEND_BASE_URL}/api/departments/${obj.id}`, obj)
             return response.data
         } catch (error: any) {
             throw Error(error.response?.data?.error || error.message)
@@ -85,7 +86,7 @@ export const deleteDepartment = createAsyncThunk(
     async ({ j, id }: { j: string | null, id: number | string }, { rejectWithValue }) => {
         setAuthHeader(j, api)
         try {
-            const response = await api.delete(`${BASE_URL}/api/departments/${id}`)
+            const response = await api.delete(`${BACKEND_BASE_URL}/api/departments/${id}`)
             // backend returns 204 -> treat as success and return id so reducer can remove it
             if (response.status === 204 || (response.status >= 200 && response.status < 300)) {
                 return id

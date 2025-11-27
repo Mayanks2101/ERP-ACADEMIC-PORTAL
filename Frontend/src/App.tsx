@@ -10,9 +10,13 @@ import { getUserProfile } from "./store/AuthReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store/store";
 
+import Loader from "./Components/Loader/Loader";
+
 function App() {
     const dispatch = useDispatch<AppDispatch>();
     const auth = useSelector((s: RootState) => s.auth);
+    const dept = useSelector((s: RootState) => s.dept);
+    const isLoading = auth.loading || dept.loading;
 
     // read token once (or whenever it changes)
     const token = (() => {
@@ -36,6 +40,7 @@ function App() {
 
     return (
         <BrowserRouter>
+            <Loader open={isLoading} />
             <Routes>
                 <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" replace />} />
                 <Route path="/create" element={isLoggedIn ? <Create /> : <Navigate to="/login" replace />} />

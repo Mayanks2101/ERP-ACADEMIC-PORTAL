@@ -3,6 +3,7 @@ import "./Signup.css";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../../store/AuthReducer";
 import { AppDispatch, RootState } from "../../../store/store";
+import { BACKEND_BASE_URL } from "../../../config";
 
 interface SignupFormProps {
     togglePanel: () => void;
@@ -82,7 +83,7 @@ export default function SignupForm({ togglePanel }: SignupFormProps) {
                         className="google-btn"
                         aria-label="google"
                         onClick={() => {
-                            window.location.href = "http://localhost:8080/oauth2/authorization/google";
+                            window.location.href = `${BACKEND_BASE_URL}/oauth2/authorization/google`;
                         }}
                     >
                         <img

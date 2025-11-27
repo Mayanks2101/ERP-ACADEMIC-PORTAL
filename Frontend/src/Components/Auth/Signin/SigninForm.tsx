@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../../store/store";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { BACKEND_BASE_URL } from "../../../config";
 
 interface SigninFormProps {
     togglePanel: () => void;
@@ -123,7 +124,7 @@ export default function SigninForm({ togglePanel }: SigninFormProps) {
                         className="google-btn"
                         aria-label="google"
                         onClick={() => {
-                            window.location.href = "http://localhost:8080/oauth2/authorization/google";
+                            window.location.href = `${BACKEND_BASE_URL}/oauth2/authorization/google`;
                         }}
                     >
                         <img

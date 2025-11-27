@@ -54,19 +54,11 @@ The application can automatically handle database setup using JPA:
 After running `insert_data.sql`, you can log in with these test accounts:
 
 ### Admin User
-- **Email:** `department.admin@university.edu`  
-- **Password:** `password123`  
+- **Email:** `department.admin@gmail.com`  
+- **Password:** `departmentadmin@1`  
 - **Role:** `ROLE_ADMIN`  
 - **Permissions:** Full CRUD operations on all resources
 
-### Regular Users
-- **Email:** `john.doe@university.edu`  
-  **Password:** `password123`  
-  **Role:** `ROLE_USER`
-  
-- **Email:** `jane.smith@university.edu`  
-  **Password:** `password123`  
-  **Role:** `ROLE_USER`
 
 ## Role-Based Access Control
 
