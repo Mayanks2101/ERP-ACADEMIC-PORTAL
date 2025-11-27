@@ -1,0 +1,16 @@
+.add-btn {
+  background: #6a323a !important;  /* warm soft wine color */
+  padding: 8px 22px !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  text-transform: none !important;
+  color: white !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.25) !important;
+}
+
+.add-btn:hover {
+  background: #a95a66 !important;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}

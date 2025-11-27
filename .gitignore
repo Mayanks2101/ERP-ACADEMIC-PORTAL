@@ -1,0 +1,57 @@
+# IDE Files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+*~
+
+# IntelliJ IDEA
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/shelf
+
+# Backend - Java/Maven
+Backend/target/
+Backend/**/*.class
+Backend/**/*.jar
+Backend/**/*.war
+Backend/**/*.ear
+Backend/**/*.log
+Backend/.mvn/
+Backend/mvnw
+Backend/mvnw.cmd
+
+# Frontend - Node/React
+Frontend/node_modules/
+Frontend/build/
+Frontend/dist/
+Frontend/.env.local
+Frontend/.env.development.local
+Frontend/.env.test.local
+Frontend/.env.production.local
+Frontend/npm-debug.log*
+Frontend/yarn-debug.log*
+Frontend/yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log

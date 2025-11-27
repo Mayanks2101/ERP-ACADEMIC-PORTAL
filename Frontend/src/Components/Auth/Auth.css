@@ -1,0 +1,107 @@
+/* Auth.css - scoped and safe (no full-screen overlays, no inner scrollbar) */
+
+:root{
+  --accent: #8f5960;
+  --accent-2: #7f4a4f;
+  --muted: #9aa0a6;
+  --card-bg: #ffffff;
+}
+
+*{box-sizing:border-box;font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif}
+
+/* page */
+.auth-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+  background: linear-gradient(180deg,#f8f4f2 0%, #efe6e6 100%);
+}
+
+/* big rounded card */
+.auth-card{
+  width:92%;
+  max-width:1160px;
+  height:680px;
+  background:var(--card-bg);
+  border-radius:28px;
+  box-shadow:0 22px 46px rgba(0,0,0,0.18);
+  display:flex;
+  overflow:hidden;
+  border:12px solid rgba(160,100,100,0.06);
+}
+
+/* left */
+.auth-left{
+  width:54%;
+  min-width:420px;
+  padding:56px 72px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  background: linear-gradient(180deg,#fbfbfd, #fafafa);
+  overflow:visible; /* important: avoid extra scroll */
+}
+
+/* top toggle */
+.auth-toggle{ display:flex; gap:12px; align-items:center; }
+.auth-toggle-btn{
+  background:transparent;
+  border:none;
+  font-size:18px;
+  padding:8px 12px;
+  cursor:pointer;
+  color:var(--muted);
+  border-radius:10px;
+  font-weight:600;
+}
+.auth-toggle-btn.active{
+  color:#111;
+  background: rgba(143,89,96,0.06);
+  box-shadow: inset 0 -4px 14px rgba(143,89,96,0.03);
+}
+
+/* form container (no scrolling) */
+.auth-form-container{
+  flex:1;
+  display:flex;
+  align-items:center;    /* centers vertically */
+  justify-content:flex-start;
+  overflow:visible;
+  padding-right:0;
+}
+
+/* inner that holds whichever form is active */
+.auth-form-inner{
+  width:100%;
+  max-width:560px; /* left column content max width */
+}
+
+.signin-right-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden; /* Ensures rounded corners work */
+  border: 10px solid rgba(255, 255, 255, 0.95);
+  box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.12);
+  background: none; /* remove background-image here */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signin-right-inner img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;  /* shows full image */
+  display: block;
+}
+
+/* responsive */
+@media (max-width:980px){
+  .auth-card{ flex-direction:column; height:auto; }
+  .auth-left{ width:100%; padding:28px; min-width:0; }
+  .auth-right{ width:100%; height:320px; order:2; padding:20px; }
+  .auth-form-inner{ max-width:100%; }
+}

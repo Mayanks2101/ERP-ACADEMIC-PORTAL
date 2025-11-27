@@ -1,0 +1,65 @@
+/* CreateDepartment.css — styles for CreateDepartmentModal */
+
+.create-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.create-modal-title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #111827;
+}
+
+.create-form {
+  margin-top: 6px;
+}
+
+/* small default preview */
+.image-preview {
+  width: 100%;
+  max-width: 260px;
+  height: 140px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px auto;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* upload button */
+.upload-btn {
+  border-radius: 10px;
+  text-transform: none;
+  color: #333;
+  border-color: rgba(0, 0, 0, 0.08);
+  height: 44px;
+}
+
+/* submit button */
+.create-submit-btn {
+  background: linear-gradient(180deg, #8f5960, #7f4a4f);
+  color: white;
+  height: 48px;
+  border-radius: 10px;
+  text-transform: none;
+  font-weight: 700;
+}
+
+/* small responsive tweaks */
+@media (max-width: 480px) {
+  .image-preview {
+    max-width: 180px;
+    height: 120px;
+  }
+}
