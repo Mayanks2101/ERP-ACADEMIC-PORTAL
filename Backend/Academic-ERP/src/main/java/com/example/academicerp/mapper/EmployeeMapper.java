@@ -4,7 +4,7 @@ import com.example.academicerp.dto.EmployeeRequestDto;
 import com.example.academicerp.dto.EmployeeResponseDto;
 import com.example.academicerp.entity.Department;
 import com.example.academicerp.entity.Employee;
-import com.example.academicerp.exception.ResourceNotFoundException;
+import com.example.academicerp.exception.AppExceptions.ResourceNotFoundException;
 import com.example.academicerp.repository.DepartmentRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DepartmentResponseDto {
-    private Integer id;  // Changed from Long to Integer to match Department entity
+    private Integer id;
     private String name;
     private Integer capacity;
 

@@ -1,5 +1,6 @@
 package com.example.academicerp.config.security;
 
+import com.example.academicerp.config.AppConfig;
 import com.example.academicerp.config.security.JwtTokenValidator;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,12 +25,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private AppConfig appConfig;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, 
                                   HttpServletResponse response, 
                                   FilterChain filterChain) throws ServletException, IOException {
         
-        final String authHeader = request.getHeader("Authorization");
+        final String authHeader = request.getHeader(appConfig.getJwtHeader());
         String username = null;
         String jwt = null;
 

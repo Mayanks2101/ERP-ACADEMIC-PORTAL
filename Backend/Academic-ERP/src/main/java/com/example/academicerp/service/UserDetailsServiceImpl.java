@@ -1,7 +1,7 @@
 package com.example.academicerp.service;
 
 import com.example.academicerp.entity.User;
-import com.example.academicerp.exception.JwtTokenNotValid;
+import com.example.academicerp.exception.AppExceptions.JwtTokenNotValid;
 import com.example.academicerp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

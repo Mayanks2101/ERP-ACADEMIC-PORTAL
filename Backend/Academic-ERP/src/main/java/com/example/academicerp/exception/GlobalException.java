@@ -10,16 +10,16 @@ public class GlobalException {
 
 
 
-    @ExceptionHandler(value = JwtTokenNotValid.class)
-    public ResponseEntity<ErrorResponse> handleExceptionJwtTokenNotValid(JwtTokenNotValid tokenNotValid) {
+    @ExceptionHandler(value = AppExceptions.JwtTokenNotValid.class)
+    public ResponseEntity<ErrorResponse> handleExceptionJwtTokenNotValid(AppExceptions.JwtTokenNotValid tokenNotValid) {
         ErrorResponse er=new ErrorResponse();
         er.setMessage(tokenNotValid.getMessage());
         er.setStatusCode(HttpStatus.UNAUTHORIZED.value());
         return new ResponseEntity<>(er, HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(value = EmailAlreadyExists.class)
-    public ResponseEntity<ErrorResponse> handleExceptionEmailAlreadyExists(EmailAlreadyExists emailAlreadyExists) {
+    @ExceptionHandler(value = AppExceptions.EmailAlreadyExists.class)
+    public ResponseEntity<ErrorResponse> handleExceptionEmailAlreadyExists(AppExceptions.EmailAlreadyExists emailAlreadyExists) {
         ErrorResponse er=new ErrorResponse();
         er.setMessage(emailAlreadyExists.getMessage());
         er.setStatusCode(HttpStatus.CONFLICT.value());

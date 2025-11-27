@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
+import com.example.academicerp.config.AppConfig;
 
 import javax.crypto.SecretKey;
 import java.util.Collection;
@@ -18,22 +19,11 @@ import java.util.Set;
 public class JwtProvider {
 
     private final SecretKey key;
-    private long jwtExpirationMs;
+    private final AppConfig appConfig;
 
-    public JwtProvider() {
-        this.key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
-        // Default to 24 hours if not set in properties
-        this.jwtExpirationMs = 86400000;
-    }
-    
-    @Value("${jwt.expiration}")
-    public void setJwtExpirationMs(String expiration) {
-        try {
-            this.jwtExpirationMs = Long.parseLong(expiration);
-        } catch (NumberFormatException e) {
-            // Use default value if parsing fails
-            this.jwtExpirationMs = 86400000;
-        }
+    public JwtProvider(AppConfig appConfig) {
+        this.appConfig = appConfig;
+        this.key = Keys.hmacShaKeyFor(appConfig.getJwtSecret().getBytes());
     }
 
     public String generateToken(Authentication auth) {
@@ -42,7 +32,7 @@ public class JwtProvider {
 
         return Jwts.builder()
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+                .setExpiration(new Date(System.currentTimeMillis() + appConfig.getJwtExpiration()))
                 .claim("email", auth.getName())
                 .claim("authorities", roles)
                 .signWith(key)
@@ -56,7 +46,7 @@ public class JwtProvider {
 
         return Jwts.builder()
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+                .setExpiration(new Date(System.currentTimeMillis() + appConfig.getJwtExpiration()))
                 .claim("email", email)  // Use provided email instead of auth.getName()
                 .claim("authorities", roles)
                 .signWith(key)

@@ -1,6 +1,8 @@
 package com.example.academicerp.controller;
+import com.example.academicerp.config.AppConfig;
+import jakarta.servlet.http.HttpServletRequest;
 
-import com.example.academicerp.exception.JwtTokenNotValid;
+import com.example.academicerp.exception.AppExceptions.JwtTokenNotValid;
 import com.example.academicerp.entity.Employee;
 import com.example.academicerp.entity.User;
 import jakarta.validation.Valid;
@@ -14,7 +16,7 @@ import jakarta.validation.Valid;
 import com.example.academicerp.dto.EmployeeRequestDto;
 import com.example.academicerp.mapper.EmployeeMapper;
 
-@CrossOrigin(origins = "http://localhost:3000") @RestController
+@RestController
 @RequestMapping("api/emp")
 public class EmployeeController {
     @Autowired
@@ -26,10 +28,15 @@ public class EmployeeController {
     private EmployeeMapper employeeMapper;
 
 
+    @Autowired
+    private AppConfig appConfig;
+
     @PostMapping("add")
     public ResponseEntity<?> addEmployee(
             @Valid @RequestBody EmployeeRequestDto employeeDto,
-            @RequestHeader("Authorization") String jwt) throws Exception {
+            HttpServletRequest request) throws Exception {
+                
+        String jwt = request.getHeader(appConfig.getJwtHeader());
                 
         if (jwt == null) {
             throw new JwtTokenNotValid("JWT token is required");
@@ -46,7 +53,8 @@ public class EmployeeController {
     }
 
     @GetMapping("getEmpById/{id}")
-    public ResponseEntity<?> getEmployeeById(@PathVariable int id,@RequestHeader("Authorization") String jwt) throws Exception {
+    public ResponseEntity<?> getEmployeeById(@PathVariable int id, HttpServletRequest request) throws Exception {
+        String jwt = request.getHeader(appConfig.getJwtHeader());
         if(jwt==null){
             throw new JwtTokenNotValid("jwt required...");
         }
@@ -58,7 +66,8 @@ public class EmployeeController {
     @GetMapping("getByDepartment/{departmentId}")
     public ResponseEntity<?> getEmployeesByDepartment(
             @PathVariable Integer departmentId,
-            @RequestHeader("Authorization") String jwt) throws Exception {
+            HttpServletRequest request) throws Exception {
+        String jwt = request.getHeader(appConfig.getJwtHeader());
         if (jwt == null) {
             throw new JwtTokenNotValid("JWT token is required");
         }

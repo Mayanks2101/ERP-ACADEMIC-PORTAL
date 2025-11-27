@@ -1,8 +1,10 @@
 package com.example.academicerp.controller;
+import com.example.academicerp.config.AppConfig;
+import jakarta.servlet.http.HttpServletRequest;
 
 import com.example.academicerp.dto.DepartmentRequestDto;
 import com.example.academicerp.dto.DepartmentResponseDto;
-import com.example.academicerp.exception.JwtTokenNotValid;
+import com.example.academicerp.exception.AppExceptions.JwtTokenNotValid;
 import com.example.academicerp.service.DepartmentService;
 import com.example.academicerp.service.UserService;
 import jakarta.validation.Valid;
@@ -17,7 +19,6 @@ import java.util.List;
  * REST controller for managing departments.
  * Requires ADMIN role for all operations.
  */
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/departments")
 @RequiredArgsConstructor
@@ -33,10 +34,21 @@ public class DeptController {
      * @return Created department
      * @throws Exception if user is not authorized
      */
+    private final AppConfig appConfig;
+
+    /**
+     * Create a new department
+     * @param departmentDto Department data to create
+     * @param request HttpServletRequest to get header
+     * @return Created department
+     * @throws Exception if user is not authorized
+     */
     @PostMapping
     public ResponseEntity<DepartmentResponseDto> createDepartment(
             @Valid @RequestBody DepartmentRequestDto departmentDto,
-            @RequestHeader("Authorization") String jwt) throws Exception {
+            HttpServletRequest request) throws Exception {
+        
+        String jwt = request.getHeader(appConfig.getJwtHeader());
         
         validateAdminAccess(jwt);
         DepartmentResponseDto createdDepartment = departmentService.createDepartment(departmentDto);

@@ -36,6 +36,4 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive = true;
 
-    // You can add more fields as per your requirements
-    // For example: phone number, address, etc.
 }

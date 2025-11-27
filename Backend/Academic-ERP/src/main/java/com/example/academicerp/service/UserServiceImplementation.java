@@ -2,7 +2,7 @@ package com.example.academicerp.service;
 
 import com.example.academicerp.config.JwtProvider;
 import com.example.academicerp.entity.User;
-import com.example.academicerp.exception.JwtTokenNotValid;
+import com.example.academicerp.exception.AppExceptions.JwtTokenNotValid;
 import com.example.academicerp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

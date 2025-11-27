@@ -1,7 +1,7 @@
 package com.example.academicerp.config.security;
 
-import com.example.academicerp.config.JwtConstant;
-import com.example.academicerp.exception.JwtTokenNotValid;
+import com.example.academicerp.config.AppConfig;
+import com.example.academicerp.exception.AppExceptions.JwtTokenNotValid;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
@@ -27,9 +27,11 @@ import java.util.function.Function;
 public class JwtTokenValidator extends OncePerRequestFilter {
     
     private final SecretKey key;
+    private final AppConfig appConfig;
 
-    public JwtTokenValidator() {
-        this.key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
+    public JwtTokenValidator(AppConfig appConfig) {
+        this.appConfig = appConfig;
+        this.key = Keys.hmacShaKeyFor(appConfig.getJwtSecret().getBytes());
     }
     
     public String extractUsername(String token) {
@@ -62,12 +64,13 @@ public class JwtTokenValidator extends OncePerRequestFilter {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, 
                                   HttpServletResponse response, 
                                   FilterChain filterChain) throws ServletException, IOException {
         
-        String jwt = request.getHeader("Authorization");
+        String jwt = request.getHeader(appConfig.getJwtHeader());
 
         if (jwt != null && jwt.startsWith("Bearer ")) {
             try {

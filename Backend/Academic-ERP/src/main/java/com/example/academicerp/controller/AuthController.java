@@ -4,8 +4,8 @@ package com.example.academicerp.controller;
 
 
 import com.example.academicerp.config.JwtProvider;
-import com.example.academicerp.exception.EmailAlreadyExists;
-import com.example.academicerp.exception.JwtTokenNotValid;
+import com.example.academicerp.exception.AppExceptions.EmailAlreadyExists;
+import com.example.academicerp.exception.AppExceptions.JwtTokenNotValid;
 import com.example.academicerp.dto.AuthResponseDto;
 import com.example.academicerp.dto.LoginRequestDto;
 import com.example.academicerp.entity.User;
@@ -22,7 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
